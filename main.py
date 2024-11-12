@@ -42,7 +42,7 @@ def year_data(station, year):
     temperature_df["    DATE"] = temperature_df["    DATE"].astype(str)
     temperature_df["TG0"] = temperature_df['   TG'].mask(temperature_df['   TG'] == -9999, np.nan)
     temperature_df["TG"] = temperature_df["TG0"] / 10
-    result = temperature_df[temperature_df["    DATE"].str.startswith(str_yr)]
+    result = temperature_df.loc[temperature_df["    DATE"].str.startswith(str_yr)]
     return result.to_dict(orient="records")
 
 if __name__ == "__main__":
