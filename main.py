@@ -34,6 +34,16 @@ def all_data(station):
     results = temperature_df.to_dict(orient="records")
     return results
 
+@app.route("/api/v1/year_data/<station>/<year>")
+def year_data(station, year):
+    filename = f"data_small/TG_STAID{str(station).zfill(6)}.txt"
+    str_yr = str(year)
+    temperature_df = pd.read_csv(filename, skiprows=20)
+    temperature_df["    DATE"] = temperature_df["    DATE"].astype(str)
+    temperature_df["TG0"] = temperature_df['   TG'].mask(temperature_df['   TG'] == -9999, np.nan)
+    temperature_df["TG"] = temperature_df["TG0"] / 10
+    result = temperature_df[temperature_df["    DATE"].str.startswith(str_yr)]
+    return result.to_dict(orient="records")
 
 if __name__ == "__main__":
     app.run(debug=True)
