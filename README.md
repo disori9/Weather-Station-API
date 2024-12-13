@@ -1,2 +1,2 @@
-# Weather Station API
-A weather API that returns the information in a station based on the data given. The website has the table that shows the available stations.
+# Weather Station REST API
+A REST Weather API that returns the historical information of a weather in a station based on the data given. The website has the table that shows the available stations. Built with Flask.
